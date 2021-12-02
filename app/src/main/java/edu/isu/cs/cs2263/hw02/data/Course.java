@@ -1,5 +1,6 @@
 package edu.isu.cs.cs2263.hw02.data;
 
+
 public class Course {
 
     public static final String[] CODES = { "CS", "CHEM", "PHYS", "MATH", "BTNY", "ZOO" };
