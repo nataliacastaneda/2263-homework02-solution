@@ -17,6 +17,12 @@ import javafx.scene.control.*;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
+import lombok.Getter;
+import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
+import lombok.val;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignF;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -25,6 +31,12 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.Vector;
 
+
+/**
+ * Main app class that launches javaFx program.
+ * Used project lombok getter and setter annotations
+ */
+@Getter @Setter @Log4j2
 public class App extends Application {
 
     private Vector<Course> courses;
@@ -34,6 +46,11 @@ public class App extends Application {
     private ChoiceBox<String> depts;
     private Scene scene;
 
+    private final static Logger LOGGER = LogManager.getLogger(Course.class);
+
+    /**
+     * No changes from original hw02 solution
+     */
     public App() {
         views = Maps.newHashMap();
         views.put("Welcome", new WelcomeView(this));
@@ -58,30 +75,46 @@ public class App extends Application {
      *                     Applications may create other stages, if needed, but they will not be
      *                     primary stages.
      * @throws Exception if something goes wrong
+     *
+     * Changes made from original hw02 solution:
+     * added Ids for various labels and buttons for querying during testing
+     * implemented 'val' annotation from project lombok for label and button local variables
      */
     @Override
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Course View");
 
-        Button display = new Button("Display (dept.)");
+        val display = new Button("Display (dept.)");
+
+        display.setId("deptDisplayButton");//added button ID
+
         display.setOnAction(event -> {
            displayList();
         });
         display.setGraphic(FontIcon.of(MaterialDesignF.FORMAT_LIST_TEXT, 20));
 
-        Button newCourse = new Button("New Course");
+        val newCourse = new Button("New Course");
+
+        newCourse.setId("newCourseButton");//added button ID
+
         newCourse.setOnAction(event -> {
             showCourseForm();
         });
         newCourse.setGraphic(FontIcon.of(MaterialDesignP.PLAYLIST_PLUS, 20));
 
-        Button exit = new Button("Exit");
+        val exit = new Button("Exit");
+
+        exit.setId("exitButton");//added button ID
+
         exit.setOnAction(event -> {
             exit();
         });
         exit.setGraphic(FontIcon.of(MaterialDesignP.POWER, 20));
 
         depts = new ChoiceBox<>();
+
+        depts.setId("deptsChoiceBox");//added choice box ID
+
         depts.setOnAction(event -> {
             int selectedIndex = depts.getSelectionModel().getSelectedIndex();
             // update the display button
@@ -93,13 +126,13 @@ public class App extends Application {
 
         mainLayout = new BorderPane();
 
-        BorderPane exitPane = new BorderPane();
+        val exitPane = new BorderPane();
         exitPane.setPadding(new Insets(10,10,10,10));
         exitPane.setRight(exit);
 
         mainLayout.setBottom(exitPane);
 
-        BorderPane choiceLayout = new BorderPane();
+        val choiceLayout = new BorderPane();
         choiceLayout.setPadding(new Insets(10,10,10,10));
         Label deptLbl = new Label("Departments: ");
         choiceLayout.setLeft(deptLbl);
@@ -107,11 +140,11 @@ public class App extends Application {
         BorderPane.setAlignment(depts, Pos.CENTER_LEFT);
         BorderPane.setAlignment(deptLbl, Pos.CENTER_RIGHT);
 
-        HBox buttons = new HBox(10, display, newCourse);
+        val buttons = new HBox(10, display, newCourse);
         HBox.setMargin(display, new Insets(10, 0, 10, 10));
         HBox.setMargin(newCourse, new Insets(10, 10, 10, 0));
 
-        BorderPane topLayout = new BorderPane();
+        val topLayout = new BorderPane();
         topLayout.setCenter(choiceLayout);
         topLayout.setRight(buttons);
 
@@ -126,31 +159,52 @@ public class App extends Application {
         primaryStage.show();
     }
 
-    public Vector<Course> getCourses() {
+    /**
+     * The class below is commented out because of the @Getter
+     */
+    /*public Vector<Course> getCourses() {
         return courses;
-    }
+    }*/
 
-    private void setView(String viewName) {
+    /**
+     * No changes from hw02 solution
+     * @param viewName
+     */
+    public void setView(String viewName) {
         mainLayout.getChildren().remove(currentView.getView());
         currentView = views.get(viewName);
         mainLayout.setCenter(currentView.getView());
         mainLayout.requestLayout();
     }
 
+    /**
+     * No changes from hw02 solution
+     */
     public void showCourseForm() {
         setView("CourseForm");
         currentView.updateData();
     }
 
+    /**
+     * No changes from hw02 solution
+     */
     public void displayList() {
         setView("DisplayList");
         currentView.updateData();
     }
 
+    /**
+     * Changes made from original hw02 solution:
+     * added Id for exit button for querying during testing
+     * implemented 'val' annotation from project lombok for label and button local variables
+     */
     public void exit() {
-        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        val alert = new Alert(Alert.AlertType.CONFIRMATION);
+
         alert.setTitle("Confirmation");
         alert.setContentText("Are you sure you want to exit?");
+        val confirmExit = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        confirmExit.setId("confirmExit");
 
         Optional<ButtonType> result = alert.showAndWait();
         result.ifPresent(btnType -> {
@@ -159,19 +213,34 @@ public class App extends Application {
         });
     }
 
+    /**
+     * No changes from hw02 solution
+     */
     public int getSelectedDepartment() {
         return depts.getSelectionModel().getSelectedIndex();
     }
 
+    /**
+     * No changes from hw02 solution
+     */
     public void showWelcome() {
         setView("Welcome");
     }
 
+    /**
+     * No changes from hw02 solution
+     */
     public void addCourse(Course course) {
         courses.add(course);
     }
 
+    /**
+     * No changes from hw02 solution
+     */
     public static void main(String[] args) {
+        LOGGER.debug("Debug Message Logged");
+        LOGGER.info("Info Message Logged");
+        LOGGER.error("Error Message Logged", new NullPointerException("NullError"));
         Application.launch(args);
     }
 }

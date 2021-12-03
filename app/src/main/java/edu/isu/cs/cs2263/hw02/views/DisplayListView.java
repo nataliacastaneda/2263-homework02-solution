@@ -8,8 +8,20 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import lombok.extern.log4j.Log4j2;
+import lombok.val;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 
+@Log4j2
 public class DisplayListView extends AppView {
+    private final static Logger LOGGER = LogManager.getLogger(Course.class);
+
+    public static void main(String[] args){
+        LOGGER.debug("Debug Message Logged");
+        LOGGER.info("Info Message Logged");
+        LOGGER.error("Error Message Logged", new NullPointerException("NullError"));
+    }
 
     ListView<Course> lstCourses;
 
@@ -17,14 +29,20 @@ public class DisplayListView extends AppView {
         super(parent);
     }
 
+    /**
+     * Changes made from original hw02 solution:
+     * added Ids for various labels and buttons for querying during testing
+     * implemented 'val' annotation from project lombok for label and button local variables
+     */
     @Override
     public void initView() {
         lstCourses = new ListView<>();
 
-        Label lbl = new Label("Courses");
+        val lbl = new Label("Courses");
+        lbl.setId("Courses");
         lbl.setFont(Font.font("Roboto", FontWeight.BOLD, 18));
 
-        BorderPane bp = new BorderPane();
+        val bp = new BorderPane();
         bp.setTop(lbl);
         bp.setCenter(lstCourses);
         bp.setPadding(new Insets(10,10,10,10));
