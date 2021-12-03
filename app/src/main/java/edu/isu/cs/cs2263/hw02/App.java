@@ -21,6 +21,8 @@ import lombok.Getter;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j2;
 import lombok.val;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignF;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
@@ -43,6 +45,8 @@ public class App extends Application {
     private BorderPane mainLayout;
     private ChoiceBox<String> depts;
     private Scene scene;
+
+    private final static Logger LOGGER = LogManager.getLogger(Course.class);
 
     /**
      * No changes from original hw02 solution
@@ -234,6 +238,9 @@ public class App extends Application {
      * No changes from hw02 solution
      */
     public static void main(String[] args) {
+        LOGGER.debug("Debug Message Logged");
+        LOGGER.info("Info Message Logged");
+        LOGGER.error("Error Message Logged", new NullPointerException("NullError"));
         Application.launch(args);
     }
 }

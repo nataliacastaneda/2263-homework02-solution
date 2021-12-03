@@ -17,12 +17,21 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
 import lombok.extern.log4j.Log4j2;
 import lombok.val;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignR;
 
 @Log4j2
 public class CoursesFormView extends AppView {
+    private final static Logger LOGGER = LogManager.getLogger(Course.class);
+
+    public static void main(String[] args){
+        LOGGER.debug("Debug Message Logged");
+        LOGGER.info("Info Message Logged");
+        LOGGER.error("Error Message Logged", new NullPointerException("NullError"));
+    }
 
     private TextField tfName;
     private Spinner<Integer> spnNumber;
