@@ -6,30 +6,16 @@ import edu.isu.cs.cs2263.hw02.views.AppView;
 import edu.isu.cs.cs2263.hw02.views.CoursesFormView;
 import edu.isu.cs.cs2263.hw02.views.DisplayListView;
 import edu.isu.cs.cs2263.hw02.views.WelcomeView;
-import javafx.collections.FXCollections;
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.MouseButton;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.HBox;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignF;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
-import org.mockito.Mockito;
-import org.mockito.exceptions.base.MockitoException;
 import org.testfx.api.FxAssert;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
-import org.testfx.assertions.api.Assertions;
-import org.testfx.assertions.api.WindowAssert;
 import org.testfx.framework.junit5.ApplicationTest;
 import org.testfx.framework.junit5.Start;
 import org.testfx.framework.junit5.ApplicationExtension;
@@ -37,36 +23,15 @@ import org.testfx.matcher.control.LabeledMatchers;
 import javafx.stage.Stage;
 
 import java.util.Map;
-import java.util.Optional;
 import java.util.Vector;
 import java.util.concurrent.TimeoutException;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.when;
-import static org.testfx.api.FxToolkit.registerPrimaryStage;
-import static org.testfx.api.FxToolkit.setupApplication;
-
-//I could not find good documentation on how to operate TestFx. I understand how it should work with the FxRobot selecting buttons and such and working through the program to confirm
-//functionality, but I do not know how to set up the classes so that they can be tested.
+import static org.mockito.Mockito.*;
 
 @ExtendWith(ApplicationExtension.class)
 public class AppTest {
-/*
-    @BeforeAll
-    public static void setupSpec() throws Exception{
-        //set up javafx system
-        if (Boolean.getBoolean("headless")){
-            System.setProperty("testfx.robot", "glass");
-            System.setProperty("testfx.headless", "true");
-            System.setProperty("prism.order", "sw");
-            System.setProperty("prism.text", "t2k");
-            System.setProperty("java.awt.headless", "true");
-        }
-        registerPrimaryStage();
-    }
- */
-    App testApp = mock(App.class);
+    App testApp;// = mock(App.class);
 
     Vector<Course> courses;
     AppView currentView;
@@ -77,6 +42,7 @@ public class AppTest {
 
     @BeforeEach
     public void setUp() throws Exception{
+        testApp = mock(App.class);
         views = Maps.newHashMap();
         views.put("Welcome", new WelcomeView(testApp));
         views.put("DisplayList", new DisplayListView(testApp));
@@ -99,29 +65,38 @@ public class AppTest {
     }
 
     @Test
-    void getCourses() {
+    void getCoursesTest() {
+        when(testApp.getCourses()).thenReturn(courses);
+        Course course = new Course("Computer Science", "CS", 2263, 3);
+        courses.add(course);
+        assertEquals(courses, testApp.getCourses());
     }
 
     @Test
-    void setView(){
-     //   when().thenReturn();
-
+    void setViewTest(){
+        testApp.setView("Welcome");
+        FxAssert.verifyThat("#welcomeMessage",LabeledMatchers.hasText("Welcome to Course List"));
     }
 
     @Test
-    void showCourseForm(FxRobot robot) {
-   //     when().thenReturn()
-        //FxAssert.verifyThat();
+    void showCourseFormTest(FxRobot robot) {
+        doAnswer(invocation->{
+            robot.clickOn("#newCourseButton");
+            return null;
+        }).when(testApp).showCourseForm();
+        testApp.showCourseForm();
+        FxAssert.verifyThat("#Name", LabeledMatchers.hasText("Name:"));
     }
 
     @Test
-    void displayList(FxRobot robot) {
-        robot.clickOn("#deptsChoiceBox");
-        robot.clickOn(".deptDisplayButton");
-
-
-        //when().thenReturn();
-       // FxAssert.verifyThat("#deptDisplayButton", LabeledMatchers.hasText("Display (dept.)"));
+    void displayListTest(FxRobot robot) {
+        doAnswer(invocation->{
+          //  robot.clickOn("#deptsChoiceBox");
+            robot.clickOn("#deptDisplayButton");
+            return null;
+        }).when(testApp).displayList();
+        testApp.displayList();
+        FxAssert.verifyThat("#Courses", LabeledMatchers.hasText("Courses"));
     }
 
     @Test
@@ -140,27 +115,43 @@ public class AppTest {
     }
 
     @Test
-    void exit(FxRobot robot) {
+    void exitTest(FxRobot robot) {
         robot.clickOn("#exitButton");
         FxAssert.verifyThat("#confirmExit", LabeledMatchers.hasText("OK"));
     }
 
     @Test
-    void getSelectedDepartment(FxRobot robot) {
-       // when().then();
+    void showWelcomeTest() {
+        testApp.showWelcome();
+        FxAssert.verifyThat("#welcomeMessage", LabeledMatchers.hasText("Welcome to Course List"));
     }
 
     @Test
-    void showWelcome(FxRobot robot) {
-       // FxAssert.verifyThat();
-        //when().then();
-    }
-
-    @Test
-    void addCourse() {
+    void addCourseTest() {
         Course testCourse = new Course("Computer Science", "CS", 2263, 3);
-        courses.add(testCourse);
+        testApp.addCourse(testCourse);
         assertNotNull(courses);
     }
 
+    @Test
+    void initViewWelcomeTest() {//method from WelcomeView.java
+        FxAssert.verifyThat("#welcomeMessage", LabeledMatchers.hasText("Welcome to Course List"));
+    }
+
+    @Test
+    void initViewCourseFormTest(FxRobot robot) {//method from CourseFormView.java
+        robot.clickOn("#newCourseButton");
+        FxAssert.verifyThat("#Name", LabeledMatchers.hasText("Name:"));
+        FxAssert.verifyThat("#lblNumber", LabeledMatchers.hasText("Number:"));
+        FxAssert.verifyThat("#lblCredits", LabeledMatchers.hasText("Credits:"));
+        FxAssert.verifyThat("#lblHead", LabeledMatchers.hasText("Create a new Course"));
+        FxAssert.verifyThat("#btnReset", LabeledMatchers.hasText("Reset"));
+        FxAssert.verifyThat("#btnAddCourse", LabeledMatchers.hasText("Add Course"));
+    }
+
+    @Test
+    void initViewDisplayListTest(FxRobot robot) {//method from CourseFormView.java
+        robot.clickOn("#deptDisplayButton");
+        FxAssert.verifyThat("#Courses", LabeledMatchers.hasText("Courses"));
+    }
 }

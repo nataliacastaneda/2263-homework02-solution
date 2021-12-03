@@ -22,6 +22,7 @@ public class DisplayListView extends AppView {
         lstCourses = new ListView<>();
 
         Label lbl = new Label("Courses");
+        lbl.setId("Courses");
         lbl.setFont(Font.font("Roboto", FontWeight.BOLD, 18));
 
         BorderPane bp = new BorderPane();

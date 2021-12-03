@@ -142,7 +142,7 @@ public class App extends Application {
         return courses;
     }
 
-    private void setView(String viewName) {
+    public void setView(String viewName) {
         mainLayout.getChildren().remove(currentView.getView());
         currentView = views.get(viewName);
         mainLayout.setCenter(currentView.getView());

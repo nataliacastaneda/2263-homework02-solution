@@ -40,6 +40,7 @@ public class CoursesFormView extends AppView {
         tfName.setMinWidth(400);
 
         Label lblName = new Label("Name:");
+        lblName.setId("Name");
         lblName.setTextAlignment(TextAlignment.RIGHT);
         lblName.setLabelFor(tfName);
 
@@ -47,6 +48,7 @@ public class CoursesFormView extends AppView {
         spnNumber.setEditable(true);
 
         Label lblNumber = new Label("Number:");
+        lblNumber.setId("lblNumber");
         lblNumber.setTextAlignment(TextAlignment.RIGHT);
         lblNumber.setLabelFor(spnNumber);
 
@@ -54,6 +56,7 @@ public class CoursesFormView extends AppView {
         spnCredits.setEditable(true);
 
         Label lblCredits = new Label("Credits:");
+        lblCredits.setId("lblCredits");
         lblCredits.setTextAlignment(TextAlignment.RIGHT);
         lblCredits.setLabelFor(spnCredits);
 
@@ -68,6 +71,7 @@ public class CoursesFormView extends AppView {
         gpForm.setVgap(5);
 
         Label lblHead = new Label("Create a new Course");
+        lblHead.setId("lblHead");
         lblHead.setFont(Font.font("Roboto", FontWeight.BOLD, 18));
 
         VBox vbxTop = new VBox();
@@ -76,12 +80,14 @@ public class CoursesFormView extends AppView {
         vbxTop.setSpacing(5);
 
         Button btnReset = new Button("Reset");
+        btnReset.setId("btnReset");
         btnReset.setOnAction(event -> {
             reset();
         });
         btnReset.setGraphic(FontIcon.of(MaterialDesignR.REFRESH, 20));
 
         Button btnAddCourse = new Button("Add Course");
+        btnAddCourse.setId("btnAddCourse");
         btnAddCourse.setOnAction(event -> {
             validateAndAdd();
         });
