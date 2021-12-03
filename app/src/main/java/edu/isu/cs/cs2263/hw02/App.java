@@ -64,24 +64,36 @@ public class App extends Application {
         primaryStage.setTitle("Course View");
 
         Button display = new Button("Display (dept.)");
+
+        display.setId("deptDisplayButton");//added button ID
+
         display.setOnAction(event -> {
            displayList();
         });
         display.setGraphic(FontIcon.of(MaterialDesignF.FORMAT_LIST_TEXT, 20));
 
         Button newCourse = new Button("New Course");
+
+        newCourse.setId("newCourseButton");//added button ID
+
         newCourse.setOnAction(event -> {
             showCourseForm();
         });
         newCourse.setGraphic(FontIcon.of(MaterialDesignP.PLAYLIST_PLUS, 20));
 
         Button exit = new Button("Exit");
+
+        exit.setId("exitButton");//added button ID
+
         exit.setOnAction(event -> {
             exit();
         });
         exit.setGraphic(FontIcon.of(MaterialDesignP.POWER, 20));
 
         depts = new ChoiceBox<>();
+
+        depts.setId("deptsChoiceBox");//added choice box ID
+
         depts.setOnAction(event -> {
             int selectedIndex = depts.getSelectionModel().getSelectedIndex();
             // update the display button
@@ -130,7 +142,7 @@ public class App extends Application {
         return courses;
     }
 
-    private void setView(String viewName) {
+    public void setView(String viewName) {
         mainLayout.getChildren().remove(currentView.getView());
         currentView = views.get(viewName);
         mainLayout.setCenter(currentView.getView());
@@ -149,8 +161,11 @@ public class App extends Application {
 
     public void exit() {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+
         alert.setTitle("Confirmation");
         alert.setContentText("Are you sure you want to exit?");
+        Button confirmExit = (Button) alert.getDialogPane().lookupButton(ButtonType.OK);
+        confirmExit.setId("confirmExit");
 
         Optional<ButtonType> result = alert.showAndWait();
         result.ifPresent(btnType -> {

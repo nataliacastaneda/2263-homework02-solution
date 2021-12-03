@@ -1,24 +1,26 @@
 package edu.isu.cs.cs2263.hw02.views;
 
-import edu.isu.cs.cs2263.hw02.App;
-import edu.isu.cs.cs2263.hw02.data.Course;
-import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TextField;
-import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
-import javafx.scene.text.TextAlignment;
-import org.kordamp.ikonli.javafx.FontIcon;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
-import org.kordamp.ikonli.materialdesign2.MaterialDesignR;
+import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
+import org.testfx.framework.junit5.ApplicationExtension;
 
+@ExtendWith(ApplicationExtension.class)
+public class CoursesFormViewTest {
+    //Testing handled in AppTest.java
+
+    @Test
+    void initView() {
+    }
+
+    @Test
+    void updateData() {
+    }
+
+
+}
+
+
+/*
 public class CoursesFormView extends AppView {
 
     private TextField tfName;
@@ -40,7 +42,6 @@ public class CoursesFormView extends AppView {
         tfName.setMinWidth(400);
 
         Label lblName = new Label("Name:");
-        lblName.setId("Name");
         lblName.setTextAlignment(TextAlignment.RIGHT);
         lblName.setLabelFor(tfName);
 
@@ -48,7 +49,6 @@ public class CoursesFormView extends AppView {
         spnNumber.setEditable(true);
 
         Label lblNumber = new Label("Number:");
-        lblNumber.setId("lblNumber");
         lblNumber.setTextAlignment(TextAlignment.RIGHT);
         lblNumber.setLabelFor(spnNumber);
 
@@ -56,7 +56,6 @@ public class CoursesFormView extends AppView {
         spnCredits.setEditable(true);
 
         Label lblCredits = new Label("Credits:");
-        lblCredits.setId("lblCredits");
         lblCredits.setTextAlignment(TextAlignment.RIGHT);
         lblCredits.setLabelFor(spnCredits);
 
@@ -71,7 +70,6 @@ public class CoursesFormView extends AppView {
         gpForm.setVgap(5);
 
         Label lblHead = new Label("Create a new Course");
-        lblHead.setId("lblHead");
         lblHead.setFont(Font.font("Roboto", FontWeight.BOLD, 18));
 
         VBox vbxTop = new VBox();
@@ -80,14 +78,12 @@ public class CoursesFormView extends AppView {
         vbxTop.setSpacing(5);
 
         Button btnReset = new Button("Reset");
-        btnReset.setId("btnReset");
         btnReset.setOnAction(event -> {
             reset();
         });
         btnReset.setGraphic(FontIcon.of(MaterialDesignR.REFRESH, 20));
 
         Button btnAddCourse = new Button("Add Course");
-        btnAddCourse.setId("btnAddCourse");
         btnAddCourse.setOnAction(event -> {
             validateAndAdd();
         });
@@ -134,4 +130,4 @@ public class CoursesFormView extends AppView {
         code = Course.CODES[parent.getSelectedDepartment()];
         reset();
     }
-}
+} */

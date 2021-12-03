@@ -17,6 +17,7 @@ public class WelcomeView extends AppView {
     @Override
     public void initView() {
         Label message = new Label("Welcome to Course List");
+        message.setId("welcomeMessage");
 
         message.setFont(Font.font("Roboto", FontWeight.BOLD, 16));
         message.setTextAlignment(TextAlignment.CENTER);
