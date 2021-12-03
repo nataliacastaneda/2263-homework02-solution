@@ -19,6 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 import lombok.Getter;
 import lombok.Setter;
+import lombok.extern.log4j.Log4j2;
 import lombok.val;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignF;
@@ -33,7 +34,7 @@ import java.util.Vector;
  * Main app class that launches javaFx program.
  * Used project lombok getter and setter annotations
  */
-@Getter @Setter
+@Getter @Setter @Log4j2
 public class App extends Application {
 
     private Vector<Course> courses;

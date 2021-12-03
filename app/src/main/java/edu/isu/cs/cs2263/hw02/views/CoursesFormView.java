@@ -15,11 +15,13 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import lombok.extern.log4j.Log4j2;
 import lombok.val;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignR;
 
+@Log4j2
 public class CoursesFormView extends AppView {
 
     private TextField tfName;

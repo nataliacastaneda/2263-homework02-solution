@@ -7,8 +7,10 @@ import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import lombok.extern.log4j.Log4j2;
 import lombok.val;
 
+@Log4j2
 public class WelcomeView extends AppView {
 
     public WelcomeView(App parent) {
