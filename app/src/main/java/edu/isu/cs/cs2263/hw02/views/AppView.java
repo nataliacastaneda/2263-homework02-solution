@@ -4,6 +4,9 @@ import edu.isu.cs.cs2263.hw02.App;
 import javafx.scene.Node;
 
 public abstract class AppView implements IAppView {
+    /**
+     * No changes from hw02 solution
+     */
 
     protected Node view;
     protected App parent;

@@ -15,6 +15,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.TextAlignment;
+import lombok.val;
 import org.kordamp.ikonli.javafx.FontIcon;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignP;
 import org.kordamp.ikonli.materialdesign2.MaterialDesignR;
@@ -31,6 +32,11 @@ public class CoursesFormView extends AppView {
         super(parent);
     }
 
+    /**
+     * Changes made from original hw02 solution:
+     * added Ids for various labels and buttons for querying during testing
+     * implemented 'val' annotation from project lombok for label and button local variables
+     */
     @Override
     public void initView() {
         lblMessage = new Label("");
@@ -39,7 +45,7 @@ public class CoursesFormView extends AppView {
         tfName.setPromptText("Enter a course name...");
         tfName.setMinWidth(400);
 
-        Label lblName = new Label("Name:");
+        val lblName = new Label("Name:");
         lblName.setId("Name");
         lblName.setTextAlignment(TextAlignment.RIGHT);
         lblName.setLabelFor(tfName);
@@ -47,7 +53,7 @@ public class CoursesFormView extends AppView {
         spnNumber = new Spinner<>(100, 900, 100, 1);
         spnNumber.setEditable(true);
 
-        Label lblNumber = new Label("Number:");
+        val lblNumber = new Label("Number:");
         lblNumber.setId("lblNumber");
         lblNumber.setTextAlignment(TextAlignment.RIGHT);
         lblNumber.setLabelFor(spnNumber);
@@ -55,12 +61,12 @@ public class CoursesFormView extends AppView {
         spnCredits = new Spinner<>(0, 10, 1, 1);
         spnCredits.setEditable(true);
 
-        Label lblCredits = new Label("Credits:");
+        val lblCredits = new Label("Credits:");
         lblCredits.setId("lblCredits");
         lblCredits.setTextAlignment(TextAlignment.RIGHT);
         lblCredits.setLabelFor(spnCredits);
 
-        GridPane gpForm = new GridPane();
+        val gpForm = new GridPane();
         gpForm.add(lblName, 0, 0, 1, 1);
         gpForm.add(lblNumber, 0, 1, 1, 1);
         gpForm.add(lblCredits, 0, 2, 1, 1);
@@ -70,23 +76,23 @@ public class CoursesFormView extends AppView {
         gpForm.setHgap(5);
         gpForm.setVgap(5);
 
-        Label lblHead = new Label("Create a new Course");
+        val lblHead = new Label("Create a new Course");
         lblHead.setId("lblHead");
         lblHead.setFont(Font.font("Roboto", FontWeight.BOLD, 18));
 
-        VBox vbxTop = new VBox();
+        val vbxTop = new VBox();
         vbxTop.getChildren().add(lblHead);
         vbxTop.getChildren().add(lblMessage);
         vbxTop.setSpacing(5);
 
-        Button btnReset = new Button("Reset");
+        val btnReset = new Button("Reset");
         btnReset.setId("btnReset");
         btnReset.setOnAction(event -> {
             reset();
         });
         btnReset.setGraphic(FontIcon.of(MaterialDesignR.REFRESH, 20));
 
-        Button btnAddCourse = new Button("Add Course");
+        val btnAddCourse = new Button("Add Course");
         btnAddCourse.setId("btnAddCourse");
         btnAddCourse.setOnAction(event -> {
             validateAndAdd();
@@ -94,12 +100,12 @@ public class CoursesFormView extends AppView {
         btnAddCourse.setGraphic(FontIcon.of(MaterialDesignP.PLUS, 20));
         btnAddCourse.setDefaultButton(true);
 
-        FlowPane fpButtons = new FlowPane();
+        val fpButtons = new FlowPane();
         fpButtons.getChildren().add(btnReset);
         fpButtons.getChildren().add(btnAddCourse);
         fpButtons.setHgap(5);
 
-        BorderPane main = new BorderPane();
+        val main = new BorderPane();
         main.setCenter(gpForm);
         main.setTop(vbxTop);
         main.setBottom(fpButtons);

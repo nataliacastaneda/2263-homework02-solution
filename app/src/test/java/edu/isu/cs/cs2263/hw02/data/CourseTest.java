@@ -3,53 +3,64 @@ package edu.isu.cs.cs2263.hw02.data;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+
+/** Tests the course class
+ * @author Natalia Castaneda
+ */
 public class CourseTest {
     Course testCourse = new Course("Computer Science", "CS", 2263, 3);
 
+    /**
+     * The tests below test the getter and setter functionality of the Course object.
+     * All tests use JUnit assertions, specifically assertEquals.
+     */
     @Test
-    void getNumber() {
+    void getNumberTest() {
         assertEquals(2263, testCourse.getNumber());
     }
 
     @Test
-    void setNumber() {
+    void setNumberTest() {
         testCourse.setNumber(2235);
         assertEquals(2235, testCourse.getNumber());
     }
 
     @Test
-    void getName() {
+    void getNameTest() {
         assertEquals("Computer Science", testCourse.getName());
     }
 
     @Test
-    void setName() {
+    void setNameTest() {
         testCourse.setName("Data Structures");
         assertEquals("Data Structures", testCourse.getName());
     }
 
     @Test
-    void getCredits() {
+    void getCreditsTest() {
         assertEquals(3, testCourse.getCredits());
     }
 
     @Test
-    void setCredits() {
+    void setCreditsTest() {
         testCourse.setCredits(4);
         assertEquals(4, testCourse.getCredits());
     }
 
     @Test
-    void getCode() {
+    void getCodeTest() {
         assertEquals("CS", testCourse.getCode());
     }
 
     @Test
-    void setCode() {
+    void setCodeTest() {
         testCourse.setCode("MATH");
         assertEquals("MATH", testCourse.getCode());
     }
 
+    /**
+     * The test below tests the ability to create a string for a course in the specified format
+     */
     @Test
     void testToString() {
         String expected = "CS 2263 Computer Science (3)";

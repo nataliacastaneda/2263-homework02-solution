@@ -1,8 +1,19 @@
 package edu.isu.cs.cs2263.hw02.data;
+/** Represents a course
+ * changes from original hw02 solution are specified.
+ */
 
+import lombok.Data;
 
+/**
+ * Used project lombok Data annotation since this is a data class for Course Object.
+ * Getters and setters are automatically generated.
+ */
+@Data
 public class Course {
-
+    /**
+     * Possible codes and departments
+     */
     public static final String[] CODES = { "CS", "CHEM", "PHYS", "MATH", "BTNY", "ZOO" };
     public static final String[] DEPTS = { "Computer Science", "Chemistry", "Physics", "Mathematics", "Botany", "Zoology" };
 
@@ -11,8 +22,12 @@ public class Course {
     private int credits;
     private String code;
 
-    public Course() {}
-
+    /** Creates course object with details:
+     * @param name name of the course (ex: Advanced OOP)
+     * @param code code of the course (ex: CS is code for Computer Science)
+     * @param number number of the course (ex: 2263)
+     * @param credits number of credits for course (ex: 3)
+     */
     public Course(String name, String code, int number, int credits) {
         this.name = name;
         this.code = code;
@@ -20,6 +35,11 @@ public class Course {
         this.credits = credits;
     }
 
+    /**
+     * The code below has been commented out because it is not longer needed
+     * with the project lombok @Data annotation
+     */
+/*
     public int getNumber() {
         return number;
     }
@@ -50,8 +70,11 @@ public class Course {
 
     public void setCode(String code) {
         this.code = code;
-    }
+    } */
 
+    /** Creates string of course details
+     * @return A string representing a course object
+     */
     @Override
     public String toString() {
         return String.format("%s %d %s (%d)", code, number, name, credits);
